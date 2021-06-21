@@ -1,5 +1,5 @@
 {% set name = "sbank" %}
-{% set version = "0.0.2" %}
+{% set version = "0.0.3" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 32d4c36cad5d75ead8103d8d4bd1e9cdfe31c72811c029f5cc0209076174771d
+  sha256: 2cf86b4fd10e3c41a66686b93243ebb12c516fbdfadffcf0966955bbdb5621ef
   patches:
     # clean up requirements for conda builds
     - requirements.patch
