@@ -1,0 +1,35 @@
+From 54f934d4852dd967107cb8c231b58f9238c6ba01 Mon Sep 17 00:00:00 2001
+From: Duncan Macleod <duncan.macleod@ligo.org>
+Date: Mon, 29 Apr 2024 10:51:16 +0100
+Subject: [PATCH 2/2] backport gwastro/sbank#58
+
+backport https://github.com/gwastro/sbank/pull/58 to fix https://github.com/gwastro/sbank/pull/56
+---
+ sbank/overlap_cpu_lib.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/sbank/overlap_cpu_lib.c b/sbank/overlap_cpu_lib.c
+index c738840..e3bd425 100644
+--- a/sbank/overlap_cpu_lib.c
++++ b/sbank/overlap_cpu_lib.c
+@@ -23,6 +23,8 @@
+ #include <sys/types.h>
+ 
+ /* ---------------- LAL STUFF NEEDED ----------------- */
++int XLALPrintError(const char *fmt, ...);
++
+ typedef struct tagCOMPLEX8Vector {
+      uint32_t length; /**< Number of elements in array. */
+      float complex *data; /**< Pointer to the data array. */
+@@ -35,6 +37,8 @@ typedef struct tagCOMPLEX8FFTPlan COMPLEX8FFTPlan;
+ 
+ COMPLEX8FFTPlan * XLALCreateReverseCOMPLEX8FFTPlan( uint32_t size, int measurelvl );
+ 
++int XLALCOMPLEX8VectorFFT (COMPLEX8Vector * restrict output, const COMPLEX8Vector * restrict input, const COMPLEX8FFTPlan *plan);
++
+ void XLALDestroyCOMPLEX8FFTPlan( COMPLEX8FFTPlan *plan );
+ 
+ /* ----------------------------------------------- */
+-- 
+2.39.2
+

@@ -9,11 +9,25 @@ source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
   sha256: 6c5896ec2f9471e708c9e9a012eb7d6536a6f70f5401a852442f798e63d53d36
   patches:
-    # clean up requirements for conda builds
-    - requirements.patch
+    # -- These patches live on the conda-patches branch of duncanmmacleod's fork
+    #    of the gwastro/sbank repo. To see them, go here:
+    #
+    #    https://github.com/gwastro/sbank/compare/master...duncanmmacleod:sbank:conda-patches
+    #
+    #    To update them, check out that branch, rebase against the relevant release
+    #    tag, then update the commits. To generate new patch files for this feedstock:
+    #
+    #    git format-patch <tag>
+    #
+    #    e.g. `git format-patch 1.0.2`
+    #
+    # clean requirements
+    - 0001-remove-lalsuite-from-requirements.patch
+    # backport https://github.com/gwastro/sbank/pull/58
+    - 0002-backport-gwastro-sbank-58.patch
 
 build:
-  number: 1
+  number: 2
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [win or py<36]
 
