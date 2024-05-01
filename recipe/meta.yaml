@@ -23,8 +23,6 @@ source:
     #
     # clean requirements
     - 0001-remove-lalsuite-from-requirements.patch
-    # backport https://github.com/gwastro/sbank/pull/58
-    - 0002-backport-gwastro-sbank-58.patch
 
 build:
   number: 0
