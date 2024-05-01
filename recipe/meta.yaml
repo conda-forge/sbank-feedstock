@@ -1,5 +1,5 @@
 {% set name = "sbank" %}
-{% set version = "1.0.2" %}
+{% set version = "1.0.4" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 6c5896ec2f9471e708c9e9a012eb7d6536a6f70f5401a852442f798e63d53d36
+  sha256: 07f6b1491c2575603cafaceb65698244c3ab9898209933f83e919b66b08b725b
   patches:
     # -- These patches live on the conda-patches branch of duncanmmacleod's fork
     #    of the gwastro/sbank repo. To see them, go here:
@@ -23,11 +23,9 @@ source:
     #
     # clean requirements
     - 0001-remove-lalsuite-from-requirements.patch
-    # backport https://github.com/gwastro/sbank/pull/58
-    - 0002-backport-gwastro-sbank-58.patch
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [win or py<36]
 
@@ -38,6 +36,7 @@ requirements:
     - cython                                 # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
     - {{ compiler('c') }}
+    - {{ stdlib("c") }}
   host:
     - cython
     - liblal 7.1
