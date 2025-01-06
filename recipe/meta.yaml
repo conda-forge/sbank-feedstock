@@ -27,7 +27,7 @@ source:
 build:
   number: 2
   script: {{ PYTHON }} -m pip install . -vv
-  skip: true  # [win or py<36]
+  skip: true  # [win]
 
 requirements:
   build:
@@ -40,7 +40,7 @@ requirements:
     - python                                 # [build_platform != target_platform]
   host:
     - cython
-    - liblal 7.1
+    - liblal
     - numpy
     - pip
     - python
@@ -48,9 +48,9 @@ requirements:
   run:
     - h5py
     - lalapps
-    - liblal
     - lscsoft-glue
     - matplotlib-base
+    - numpy
     - python
     - python-lal
     - python-lalsimulation
@@ -66,8 +66,9 @@ test:
     - pip
     - pytest
   commands:
-    # check dependencies
+    # check metadata
     - python -m pip check
+    - python -m pip show sbank
     # run unit tests
     - python -m pytest -ra --pyargs sbank.tests
     # sanity check scripts
