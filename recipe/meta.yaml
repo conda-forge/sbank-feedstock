@@ -25,21 +25,22 @@ source:
     - 0001-remove-lalsuite-from-requirements.patch
 
 build:
-  number: 1
+  number: 2
   script: {{ PYTHON }} -m pip install . -vv
-  skip: true  # [win or py<36]
+  skip: true  # [win]
 
 requirements:
   build:
-    - python                                 # [build_platform != target_platform]
+    - {{ compiler('c') }}
+    - {{ stdlib("c") }}
+    # extras for cross compiling
     - cross-python_{{ target_platform }}     # [build_platform != target_platform]
     - cython                                 # [build_platform != target_platform]
     - numpy                                  # [build_platform != target_platform]
-    - {{ compiler('c') }}
-    - {{ stdlib("c") }}
+    - python                                 # [build_platform != target_platform]
   host:
     - cython
-    - liblal 7.1
+    - liblal
     - numpy
     - pip
     - python
@@ -47,9 +48,9 @@ requirements:
   run:
     - h5py
     - lalapps
-    - liblal
     - lscsoft-glue
     - matplotlib-base
+    - numpy
     - python
     - python-lal
     - python-lalsimulation
@@ -65,8 +66,9 @@ test:
     - pip
     - pytest
   commands:
-    # check dependencies
+    # check metadata
     - python -m pip check
+    - python -m pip show sbank
     # run unit tests
     - python -m pytest -ra --pyargs sbank.tests
     # sanity check scripts
