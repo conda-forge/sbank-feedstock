@@ -1,5 +1,5 @@
 {% set name = "sbank" %}
-{% set version = "1.0.5" %}
+{% set version = "1.0.6" %}
 
 package:
   name: {{ name|lower }}
@@ -7,7 +7,7 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: ca5fa82428005cc7c7a30db57aa2bd956d1daf13f00019d7a37cf68567ec41f7
+  sha256: e0b5de3cdbc6370a5810bd5c949b2a1dce589649a1029efc395a9675b581938d
   patches:
     # -- These patches live on the conda-patches branch of duncanmmacleod's fork
     #    of the gwastro/sbank repo. To see them, go here:
@@ -25,7 +25,7 @@ source:
     - 0001-remove-lalsuite-from-requirements.patch
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv
   skip: true  # [win]
 
